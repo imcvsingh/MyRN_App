@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "android": "react-native run-android --port 8082",
+    "ios": "react-native run-ios --port 8082",
     "lint": "eslint .",
-    "start": "react-native start",
-    "test": "jest"
+    "start": "react-native start --port 8082",
+    "test": "jest",
+    "mac:rm": "rm -fr $TMPDIR/metro-* ; watchman watch-del-all; rm -rf node_modules; rm -rf android/build; rm -rf android/index.android.bundle; rm -rf android/index.android.bundle.map; rm -rf android/app/build; rm -rf package-lock.json; rm -rf yarn.lock; rm -rf ios/Podfile.lock; rm -rf ios/main.jsbundle; rm -rf ios/index.ios.map;  rm -rf ios/build/;  rm -rf ios/assets; rm -rf ios/Pods ; rm -rf ios/WorkplaceCompanionApp.xcworkspace"
   },
   "dependencies": {
     "react": "18.2.0",
