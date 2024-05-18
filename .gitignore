@@ -21,6 +21,10 @@ DerivedData
 *.ipa
 *.xcuserstate
 ios/.xcode.env.local
+/ios/assets/
+# /ios/Podfile.lock
+/ios/main.jsbundle
+/ios/index.ios.map
 
 # Android/IntelliJ
 #
@@ -33,6 +37,8 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
+/android/index.android.bundle
+/android/index.android.bundle.map
 
 # node.js
 #
@@ -41,6 +47,7 @@ npm-debug.log
 yarn-error.log
 package-lock.json
 yarn.lock
+
 
 # fastlane
 #
@@ -60,10 +67,11 @@ yarn.lock
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+# Add this line if you want to avoid checking in source code from the Xcode workspace
+*.xcworkspace
 
 # Temporary files created by Metro to check the health of the file watcher
 .metro-health-check*
 
 # testing
 /coverage
-
