@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {Image, Text, View} from 'react-native';
-import {ScreensConstants} from '../../utils/ScreenMapConstants';
+import {ScreensConstants} from '../../utils/Constants';
+import styles from './style';
 
 const SettingsScreen = ({navigation}) => {
   useEffect(() => {
@@ -14,8 +15,8 @@ const SettingsScreen = ({navigation}) => {
   }, [navigation]);
 
   return (
-    <View>
-      <Text>Settings Screen</Text>
+    <View style={styles.container}>
+      <Text>{'Settings Screen'}</Text>
     </View>
   );
 };

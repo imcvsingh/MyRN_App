@@ -1,12 +1,14 @@
 import React, {useEffect} from 'react';
 import {Alert, Image, View} from 'react-native';
-import {ScreensConstants} from '../../utils/ScreenMapConstants';
+import {ScreensConstants} from '../../utils/Constants';
 import ImageConstants from '../../utils/ImageConstants';
 import styles from './style';
 import Button from '../../components/Buttons/Button';
+import LocalStorageManager from '../../localStorage/LocalStorageManager';
 
 const LoginScreen = ({navigation}) => {
   function handleOnPress() {
+    LocalStorageManager.getInstance().setIsUserLoggedIn(true);
     navigation.replace(ScreensConstants.TAB_NAVIGATION);
     // alert('Click');
   }

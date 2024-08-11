@@ -1,7 +1,8 @@
 const ColorConstants = {
   primary: '#4196E3', // Blue color
   secondary: '#2ecc71', // Green color
-  background: '#ffffff', // White color
+  white: '#ffffff', // White color
+  black: '#000000', // Black color
   textPrimary: '#333333', // Dark gray for primary text
   textSecondary: '#666666', // Light gray for secondary text
   border: '#dddddd', // Light gray for borders

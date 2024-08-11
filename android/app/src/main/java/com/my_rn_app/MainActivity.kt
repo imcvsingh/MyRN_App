@@ -1,5 +1,8 @@
 package com.my_rn_app
 
+import android.os.Bundle
+import android.os.PersistableBundle
+import android.view.WindowManager
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
@@ -12,8 +15,35 @@ class MainActivity : ReactActivity() {
    * rendering of the component.
    */
   override fun getMainComponentName(): String = "MY_RN_App"
+//    override fun onPause() {
+//        super.onPause()
+//        getWindow().setFlags(
+//            WindowManager.LayoutParams.FLAG_SECURE,
+//            WindowManager.LayoutParams.FLAG_SECURE
+//        )
+//    }
+//
+//    override fun onResume() {
+//        super.onResume()
+//        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+//    }
 
-  /**
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            // allow screenshots when activity is focused
+            window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        } else {
+            // hide information (blank view) on app switcher
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE
+            )
+
+        }
+    }
+
+    /**
    * Returns the instance of the [ReactActivityDelegate]. We use [DefaultReactActivityDelegate]
    * which allows you to enable New Architecture with a single boolean flags [fabricEnabled]
    */

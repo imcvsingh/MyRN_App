@@ -1,76 +1,29 @@
 import React from 'react';
-import {Image, StatusBar, View, Text, TouchableOpacity} from 'react-native';
+import {StatusBar} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/HomeScreen/HomeScreen';
-import SettingsScreen from '../screens/SettingsScreen/HomeScreen';
-import {ScreensConstants} from '../utils/ScreenMapConstants';
+import {ScreensConstants} from '../utils/Constants';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ImageConstants from '../utils/ImageConstants';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import HomeScreen from '../screens/HomeScreen/HomeScreen';
+import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
+import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
 
 const Tab = createBottomTabNavigator();
 
-function MyTabBar({state, descriptors, navigation}) {
-  return (
-    <View style={{flexDirection: 'row'}}>
-      {state.routes.map((route, index) => {
-        const {options} = descriptors[route.key];
-        const label =
-          options.tabBarLabel !== undefined
-            ? options.tabBarLabel
-            : options.title !== undefined
-            ? options.title
-            : route.name;
-
-        const isFocused = state.index === index;
-
-        const onPress = () => {
-          const event = navigation.emit({
-            type: 'tabPress',
-            target: route.key,
-            canPreventDefault: true,
-          });
-
-          if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name, route.params);
-          }
-        };
-
-        const onLongPress = () => {
-          navigation.emit({
-            type: 'tabLongPress',
-            target: route.key,
-          });
-        };
-
-        return (
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityState={isFocused ? {selected: true} : {}}
-            accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.tabBarTestID}
-            onPress={onPress}
-            onLongPress={onLongPress}
-            style={{flex: 1}}>
-            <Text style={{color: isFocused ? '#673ab7' : '#222'}}>{label}</Text>
-          </TouchableOpacity>
-        );
-      })}
-    </View>
-  );
-}
-
 const TabBarIconHome = ({focused, color}) => {
-  // const image_name = focused ? 'home-outline' : 'home-outline';
-  return (
-    <View>
-      <Image
-        source={ImageConstants.logo}
-        style={{height: 24, width: 24, tintColor: focused ? 'red' : 'green'}}
-      />
-    </View>
-  );
+  const image_name = focused ? 'home-outline' : 'home-outline';
+  return <Ionicons name={image_name} size={24} color={color} />;
+};
+
+const TabBarIconProfile = ({focused, color}) => {
+  const image_name = focused ? 'person' : 'person';
+  return <Ionicons name={image_name} size={24} color={color} />;
+};
+
+const TabBarIconSettings = ({focused, color}) => {
+  const image_name = focused ? 'settings-outline' : 'settings-outline';
+  return <Ionicons name={image_name} size={24} color={color} />;
 };
 
 function TabNavigation() {
@@ -82,36 +35,37 @@ function TabNavigation() {
         barStyle={'dark-content'}
       />
       <Tab.Navigator
-        // tabBar={props => <MyTabBar {...props} />}
-        initialRouteName={ScreensConstants.HOME}
+        initialRouteName={ScreensConstants.HOME_SCREEN}
         screenOptions={({route}) => ({
-          // tabBarIcon: ({focused, color, size}) => {
-          //   let iconName;
-
-          //   if (route.name === 'Home') {
-          //     iconName = focused ? ImageConstants.logo : ImageConstants.logo;
-          //   } else if (route.name === 'Settings') {
-          //     iconName = focused ? 'ios-list' : 'ios-list-outline';
-          //   }
-
-          //   // You can return any component that you like here!
-          //   return <Ionicons name={iconName} size={size} color={color} />;
-          // },
-          tabBarActiveTintColor: 'tomato',
+          tabBarActiveTintColor: 'blue',
           tabBarInactiveTintColor: 'gray',
+          tabBarStyle: {paddingBottom: 5},
         })}>
         <Tab.Screen
-          name={ScreensConstants.HOME}
+          name={ScreensConstants.HOME_SCREEN}
           component={HomeScreen}
           options={{
-            // ...tabOptionStyle,
-            tabBarLabel: 'home',
-            // tabBarIcon: TabBarIconHome,
+            tabBarLabel: 'Home',
+            tabBarIcon: TabBarIconHome,
           }}
         />
         <Tab.Screen
-          name={ScreensConstants.SETTINGS}
+          name={ScreensConstants.PROFILE_SCREEN}
+          component={ProfileScreen}
+          options={{
+            tabBarLabel: 'Profile',
+            headerShown: false,
+            tabBarIcon: TabBarIconProfile,
+          }}
+        />
+        <Tab.Screen
+          name={ScreensConstants.SETTINGS_SCREEN}
           component={SettingsScreen}
+          options={{
+            tabBarLabel: 'Settings',
+            headerShown: false,
+            tabBarIcon: TabBarIconSettings,
+          }}
         />
       </Tab.Navigator>
     </SafeAreaView>

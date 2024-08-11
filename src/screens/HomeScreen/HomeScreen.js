@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {Image, Text, View} from 'react-native';
-import {ScreensConstants} from '../../utils/ScreenMapConstants';
+import {ScreensConstants} from '../../utils/Constants';
+import styles from './style';
 
 const HomeScreen = ({navigation}) => {
   useEffect(() => {
@@ -14,8 +15,8 @@ const HomeScreen = ({navigation}) => {
   }, [navigation]);
 
   return (
-    <View style={{flex: 1, backgroundColor: '#fff'}}>
-      <Text>Home Screen</Text>
+    <View style={styles.container}>
+      <Text>{'Home Screen'}</Text>
     </View>
   );
 };
