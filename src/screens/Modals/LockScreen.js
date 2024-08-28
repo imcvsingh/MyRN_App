@@ -19,10 +19,12 @@ import Animated, {
 } from 'react-native-reanimated';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ReactNativeBiometrics from 'react-native-biometrics';
+import {StackActions} from '@react-navigation/native';
 
 const LockScreen = ({navigation}) => {
   const [pin, setPin] = useState([]);
   const pinLength = Array(6).fill(0);
+  const [isWrongPinEntered, setIsWrongPinEntered] = useState(false);
 
   const offset = useSharedValue(0);
   const animationStyle = useAnimatedStyle(() => {
@@ -37,14 +39,19 @@ const LockScreen = ({navigation}) => {
   useEffect(() => {
     if (pin.length === 6) {
       if (pin === '111111') {
-        navigation.pop();
+        // navigation.pop();
+        navigation.dispatch(StackActions.pop());
       } else {
+        setIsWrongPinEntered(true);
         offset.value = withSequence(
           withTiming(-OFFSET, {duration: TIME / 2}),
           withRepeat(withTiming(OFFSET, {duration: TIME}), 4, true),
           withTiming(0, {duration: TIME / 2}),
         );
         setPin([]);
+        setTimeout(() => {
+          setIsWrongPinEntered(false);
+        }, 1000);
       }
       console.log('Pin l->', pin);
     }
@@ -120,11 +127,14 @@ const LockScreen = ({navigation}) => {
           );
         })}
       </Animated.View>
-      <CustomKeyboard
-        onPressKey={handleKeyPress}
-        onPressReset={handleResetPress}
-        onPressBackspace={handleBackspace}
-      />
+      <View style={{marginLeft: 10, marginRight: 10}}>
+        <CustomKeyboard
+          onPressKey={handleKeyPress}
+          onPressReset={handleResetPress}
+          onPressBackspace={handleBackspace}
+          isKeyDisabled={isWrongPinEntered}
+        />
+      </View>
       <TouchableOpacity
         style={{
           flex: 1,

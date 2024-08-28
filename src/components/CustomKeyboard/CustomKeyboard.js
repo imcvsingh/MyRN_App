@@ -1,28 +1,37 @@
 // CustomKeyboard.js
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Pressable} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 
-const CustomKeyboard = ({onPressKey, onPressReset, onPressBackspace}) => {
+const CustomKeyboard = ({
+  onPressKey,
+  onPressReset,
+  onPressBackspace,
+  isKeyDisabled,
+}) => {
   return (
     <View>
       <View style={styles.container}>
         {[1, 2, 3].map((key, index) => (
-          <TouchableOpacity
+          <Pressable
+            android_ripple={{color: '#D3D3D3'}} // Customize color
+            disabled={isKeyDisabled}
             key={index}
-            style={styles.key}
+            style={({pressed}) => [styles.key, pressed && {opacity: 0.5}]}
+            // style={styles.key}
             onPress={() => {
               onPressKey(key);
             }}>
             <Text style={styles.keyText}>{key}</Text>
-          </TouchableOpacity>
+          </Pressable>
         ))}
       </View>
 
       <View style={styles.container}>
         {[4, 5, 6].map((key, index) => (
           <TouchableOpacity
+            disabled={isKeyDisabled}
             key={index}
             style={styles.key}
             onPress={() => {
@@ -35,6 +44,7 @@ const CustomKeyboard = ({onPressKey, onPressReset, onPressBackspace}) => {
       <View style={styles.container}>
         {[7, 8, 9].map((key, index) => (
           <TouchableOpacity
+            disabled={isKeyDisabled}
             key={index}
             style={styles.key}
             onPress={() => {
@@ -48,9 +58,10 @@ const CustomKeyboard = ({onPressKey, onPressReset, onPressBackspace}) => {
         {[
           'Reset',
           0,
-          <Ionicons name={'backspace'} size={32} color={'#000'} />,
+          <Ionicons name={'backspace'} size={32} color={'gray'} />,
         ].map((key, index) => (
           <TouchableOpacity
+            disabled={isKeyDisabled}
             key={index}
             style={styles.key}
             onPress={() => {

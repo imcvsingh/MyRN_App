@@ -1,4 +1,4 @@
-import {StackActions, useNavigation} from '@react-navigation/native';
+import {StackActions, useNavigation, useRoute} from '@react-navigation/native';
 import React, {createContext, useEffect, useRef, useState} from 'react';
 import {Alert, AppState} from 'react-native';
 import LocalStorageManager from '../localStorage/LocalStorageManager';
@@ -10,8 +10,10 @@ const UserInactivityProvider = ({children}) => {
   const [appState, setAppState] = useState(AppState.currentState);
   const navigation = useNavigation();
   const SESSION_EXPIRY_TIME = 1000000;
+  // const route = useRoute();
 
   useEffect(() => {
+    // console.log('route->' + route.name);
     const subscription = AppState.addEventListener('change', nextAppState => {
       const isUserLoggedIn =
         LocalStorageManager.getInstance().getIsUserLoggedIn();
@@ -25,9 +27,11 @@ const UserInactivityProvider = ({children}) => {
             console.log('session expired');
             Alert.alert('Session Expired', 'Your session has been expired');
           } else {
-            // navigation.goBack();
-            const pushAction = StackActions.push(ScreensConstants.LOCK_SCREEN);
-            navigation.dispatch(pushAction);
+            // const pushAction = StackActions.push(ScreensConstants.LOCK_SCREEN);
+            // navigation.dispatch(pushAction);
+            // if (route.name !== ScreensConstants.SPLASH_SCREEN) {
+            navigation.navigate(ScreensConstants.LOCK_SCREEN);
+            // }
           }
         }
         if (nextAppState === 'background') {

@@ -8,6 +8,7 @@ import TabNavigation from './TabNaviagtion';
 import {NavigationContainer} from '@react-navigation/native';
 import LockScreen from '../screens/Modals/LockScreen';
 import BlurViewScreen from '../screens/Modals/BlurViewScreen';
+import WebViewScreen from '../screens/WebViewScreen/WebViewScreen';
 
 const RootNavigation = () => {
   const Stack = createNativeStackNavigator();
@@ -23,11 +24,11 @@ const RootNavigation = () => {
         component={LoginScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name={ScreensConstants.HOME_SCREEN}
         component={HomeScreen}
         options={{headerShown: false}}
-      />
+      /> */}
       <Stack.Screen
         name={ScreensConstants.TAB_NAVIGATION}
         component={TabNavigation}
@@ -42,6 +43,11 @@ const RootNavigation = () => {
         name={ScreensConstants.BLUR_SCREEN}
         component={BlurViewScreen}
         options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name={ScreensConstants.WEBVIEW_SCREEN}
+        component={WebViewScreen}
+        options={{headerShown: true}}
       />
     </Stack.Navigator>
   );

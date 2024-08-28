@@ -8,6 +8,7 @@ export const ScreensConstants = {
   TAB_NAVIGATION: 'TabNavigation',
   LOCK_SCREEN: 'LockScreen',
   BLUR_SCREEN: 'BlurScreen',
+  WEBVIEW_SCREEN: 'WebViewScreen',
 };
 
 export const StorageConstants = {
